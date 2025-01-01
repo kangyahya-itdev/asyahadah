@@ -49,7 +49,7 @@
             <div class='row'>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-                    <input id="text_password" type="text" name="text_password" class="validate" value="{{ old('text_password') }}">
+                    <input id="text_password" type="password" name="text_password" class="validate" value="{{ old('text_password') }}">
                     <label for="text_password">Password</label>
                     @error('text_password')
                         <span class="red-text">{{ $message }}</span>
@@ -59,7 +59,7 @@
             <div class='row'>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-                    <input id="text_password_confirmation" type="text" name="text_password_confirmation" class="validate" value="{{ old('text_password_confirmation') }}">
+                    <input id="text_password_confirmation" type="password" name="text_password_confirmation" class="validate" value="{{ old('text_password_confirmation') }}">
                     <label for="text_password_confirmation">Konfirmasi Password</label>
                     @error('text_password_confirmation')
                         <span class="red-text">{{ $message }}</span>

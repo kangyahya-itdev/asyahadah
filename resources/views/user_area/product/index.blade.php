@@ -19,9 +19,9 @@
                 <tr class="light-green lighten-1">
                     <th>No</th>
                     <th>Product</th>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Commission</th>
+                    <th>Stok</th>
+                    <th>Harga</th>
+                    <th>Komisi</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="center">No products available</td>
+                    <td colspan="5" class="center">Tidak Ada Data</td>
                 </tr>
                 @endforelse
             </tbody>
