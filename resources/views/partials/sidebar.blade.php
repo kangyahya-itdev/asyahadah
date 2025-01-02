@@ -19,10 +19,13 @@
     <a href="{{route('admin.users')}}" class="waves-effect waves-teal">
     <i class="material-icons">people</i>Users</a>
     </li>
+<<<<<<< HEAD
     <li class="bold">    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
     <a href="#!" class="waves-effect waves-teal" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="material-icons">exit_to_app</i> Logout
     </a>    </li>
+=======
+>>>>>>> 41834b0182400a900590fb0560dfd6a57709c194
 </ul>
