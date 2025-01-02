@@ -19,15 +19,9 @@
                 <tr class="light-green lighten-1">
                     <th>No</th>
                     <th>Product</th>
-<<<<<<< HEAD
                     <th>Stok</th>
                     <th>Harga</th>
                     <th>Komisi</th>
-=======
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Commission</th>
->>>>>>> 41834b0182400a900590fb0560dfd6a57709c194
                 </tr>
             </thead>
             <tbody>
@@ -41,11 +35,7 @@
                 </tr>
                 @empty
                 <tr>
-<<<<<<< HEAD
                     <td colspan="5" class="center">Tidak Ada Data</td>
-=======
-                    <td colspan="5" class="center">No products available</td>
->>>>>>> 41834b0182400a900590fb0560dfd6a57709c194
                 </tr>
                 @endforelse
             </tbody>
