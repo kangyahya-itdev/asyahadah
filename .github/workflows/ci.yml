@@ -1,0 +1,29 @@
+name: Deploy to asyahadah
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Set Up SSH
+              uses: webfactory/ssh-agent@v0.5.3
+              with:
+                ssh-private-key: ${{ secrets.ASYAHADAH_SECRET }}
+            
+            - name: Deploy to hosting
+              run: |
+                ssh -o StrictHostKeyChecking=no asyq4686@asyahadah.id -p 2223 "
+                cd public_html &&
+                git pull origin main &&
+                composer install &&
+                php artisan migrate --force &&
+                php artisan cache:clear
+                "
