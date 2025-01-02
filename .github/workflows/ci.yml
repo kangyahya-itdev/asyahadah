@@ -17,7 +17,9 @@ jobs:
               uses: webfactory/ssh-agent@v0.9.0
               with:
                 ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            
+              env:
+                SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+                
             - name: Deploy to hosting
               run: |
                 ssh -o StrictHostKeyChecking=no asyq4686@asyahadah.id -p 2223 "
