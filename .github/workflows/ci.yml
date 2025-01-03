@@ -22,8 +22,5 @@ jobs:
               run: |
                 ssh -o StrictHostKeyChecking=no asyq4686@asyahadah.id -p 2223 "
                 cd public_html &&
-                git pull origin master &&
-                composer install &&
-                php artisan migrate --force &&
-                php artisan cache:clear
+                git pull origin master
                 "
