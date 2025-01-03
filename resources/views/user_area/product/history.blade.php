@@ -14,17 +14,17 @@
         <div class="card-panel">
             <div class="card-content">
                 <span class="card-title">Riwayat Pesanan</span>
-                <table class="bordered" width='100%'>
+                <table class="responsive-table bordered striped highlight" width='100%' id='history-table'>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Produk</th>
-                            <th>Jumlah</th>
-                            <th>Harga</th>
-                            <th>Status</th>
-                            <th>Komisi</th>
-                            <th>Tanggal</th>
-                            <th>Aksi</th>
+                            <td>#</td>
+                            <td>Produk</td>
+                            <td>Jumlah</td>
+                            <td>Harga</td>
+                            <td>Status</td>
+                            <td>Komisi</td>
+                            <td>Tanggal</td>
+                            <td>Aksi</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,3 +54,25 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+    $(document).ready(function() {
+    $('#history-table').DataTable({
+      "paging": true,
+      "ordering": true,
+      "language": {
+        "lengthMenu": "Tampilkan _MENU_ entri per halaman",
+        "zeroRecords": "Data tidak ditemukan",
+        "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ entri",
+        "infoEmpty": "Tidak ada entri tersedia",
+        "infoFiltered": "(difilter dari _MAX_ total entri)",
+        "search": "Cari:",
+        "paginate": {
+          "next": "Berikutnya",
+          "previous": "Sebelumnya"
+        }
+      }
+    });
+  });
+</script>
+@endpush

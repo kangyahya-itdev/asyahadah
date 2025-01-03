@@ -26,7 +26,15 @@
             <ul class="collection with-header">
                 <li class="collection-header"><h5>About Me</h5></li>
                 <li class="collection-item">🕒 Joined on: {{ $user->created_at->format('d M Y') }}</li>
-                <li class="collection-item">🔗 Referral Code: {{ $user->referral_code ?? 'No Referral Code available' }}</li>
+                <li class="collection-item">
+                    🔗 Referral Code: 
+                    <span id="referral-code">{{ $user->referral_code ?? 'No Referral Code available' }}</span>
+                    <button class='btn btn-sm' onclick="copyReferralCode()" style="margin-left: 10px; cursor: pointer;"><i class='material-icons'>content_copy</i></button>
+                    @php
+                        $referralUrl = "https://asyahadah.id/register?kode_referral=" . ($user->referral_code ?? 'default_code');
+                    @endphp
+                    <button class='btn btn-sm' onclick="shareContent('{{ $referralUrl }}')"> <i class='material-icons'>share</i></button>
+                </li>
                 <li class="collection-item">👤 Referred By: {{ $user->referredBy->name ?? 'No Referred By available' }}</li>
             </ul>
         </div>
@@ -100,4 +108,44 @@
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
 </style>
+@endpush
+
+@push('script')
+<script>
+    function copyReferralCode() {
+        // Ambil elemen referral code
+        const referralCodeElement = document.getElementById('referral-code');
+        const referralCode = referralCodeElement.innerText;
+
+        // Buat elemen input sementara
+        const tempInput = document.createElement('input');
+        tempInput.value = referralCode;
+        document.body.appendChild(tempInput);
+
+        // Pilih dan salin teks
+        tempInput.select();
+        document.execCommand('copy');
+
+        // Hapus elemen input sementara
+        document.body.removeChild(tempInput);
+
+        // Tampilkan notifikasi (opsional)
+        alert('Referral Code copied to clipboard: ' + referralCode);
+    }
+    function shareContent(referralUrl) {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Check out this referral code!',
+                text: 'Here is my referral code: REF12345',
+                url: referralUrl
+            }).then(() => {
+                console.log('Content shared successfully!');
+            }).catch((error) => {
+                console.error('Error sharing:', error);
+            });
+        } else {
+            alert('Web Share API is not supported on your device.');
+        }
+    }
+</script>
 @endpush
