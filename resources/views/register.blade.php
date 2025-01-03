@@ -39,7 +39,7 @@
             <div class='row'>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">mail</i>
-                    <input id="text_mail" type="text" name="text_mail" class="validate" value="{{ old('text_mail') }}">
+                    <input id="text_mail" type="email" name="text_mail" class="validate" value="{{ old('text_mail') }}">
                     <label for="text_mail">Email</label>
                     @error('text_mail')
                         <span class="red-text">{{ $message }}</span>
@@ -49,11 +49,7 @@
             <div class='row'>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-<<<<<<< HEAD
                     <input id="text_password" type="password" name="text_password" class="validate" value="{{ old('text_password') }}">
-=======
-                    <input id="text_password" type="text" name="text_password" class="validate" value="{{ old('text_password') }}">
->>>>>>> 41834b0182400a900590fb0560dfd6a57709c194
                     <label for="text_password">Password</label>
                     @error('text_password')
                         <span class="red-text">{{ $message }}</span>
@@ -63,11 +59,7 @@
             <div class='row'>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-<<<<<<< HEAD
                     <input id="text_password_confirmation" type="password" name="text_password_confirmation" class="validate" value="{{ old('text_password_confirmation') }}">
-=======
-                    <input id="text_password_confirmation" type="text" name="text_password_confirmation" class="validate" value="{{ old('text_password_confirmation') }}">
->>>>>>> 41834b0182400a900590fb0560dfd6a57709c194
                     <label for="text_password_confirmation">Konfirmasi Password</label>
                     @error('text_password_confirmation')
                         <span class="red-text">{{ $message }}</span>

@@ -14,7 +14,7 @@
         <div class="card-panel">
             <div class="card-content">
                 <span class="card-title">Riwayat Pesanan</span>
-                <table class="bordered">
+                <table class="bordered" width='100%'>
                     <thead>
                         <tr>
                             <th>#</th>

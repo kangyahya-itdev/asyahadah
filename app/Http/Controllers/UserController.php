@@ -59,9 +59,9 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'text_telephone' => 'required|string|max:15',
+            'text_telephone' => 'required|string|max:15|unique:users,handphone',
             'text_name' => 'required|string|max:255',
-            'text_mail' => 'required|email|max:255',
+            'text_mail' => 'required|email|unique:users,email',
             'text_password' => 'required|string|min:8|confirmed',
             'kode_referral' => 'nullable|string|exists:users,referral_code',
         ]);
