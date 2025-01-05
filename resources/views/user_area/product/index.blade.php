@@ -46,14 +46,14 @@
     <div class="col s12 m12">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title" id="product-name">Product Name</span>
-                    <p>Stock: <span id="product-stock"></span></p>
-                    <p>Price: <span id="product-price"></span></p>
-                    <p>Commission: <span id="product-commission"></span></p>
+                    <span class="card-title" id="product-name">Produk</span>
+                    <p>Stok: <span id="product-stock"></span></p>
+                    <p>Harga: <span id="product-price"></span></p>
+                    <p>Komisi: <span id="product-commission"></span></p>
                 </div>
                 <div class="card-action">
-                    <button id="btn-buy" class="btn waves-effect waves-light green col s6 m6">Beli</button>
-                    <button id="btn-pay" class="btn waves-effect waves-light blue col s6 m6">Bayar</button>
+                    <button id="btn-buy" class="btn waves-effect waves-light green col s12 m12">Order</button>
+                    <!-- <button id="btn-pay" class="btn waves-effect waves-light blue col s6 m6">Bayar</button> -->
                 </div>
             </div>
         </div>
@@ -63,12 +63,12 @@
 <!-- Modal for Buy -->
 <div id="modal-buy" class="modal">
     <div class="modal-content">
-        <h4>Buy Product</h4>
+        <h4>Order Produk</h4>
         <div class="divider"></div>
         <div class="card-panel light-green lighten-5">
             <div class="row">
                 <div class="col s6">
-                    <p><strong>Product:</strong></p>
+                    <p><strong>Produk:</strong></p>
                 </div>
                 <div class="col s6 right-align">
                     <p id="modal-buy-product-name"></p>
@@ -76,7 +76,7 @@
             </div>
             <div class="row">
                 <div class="col s6">
-                    <p><strong>QTY:</strong></p>
+                    <p><strong>Jumlah:</strong></p>
                 </div>
                 <div class="col s6 right-align">
                     <p class="range-field">
@@ -86,7 +86,7 @@
             </div>
             <div class="row">
                 <div class="col s6">
-                    <p><strong>Price:</strong></p>
+                    <p><strong>harga:</strong></p>
                 </div>
                 <div class="col s6 right-align">
                     <input readonly type="text" id="modal-buy-product-price">
@@ -94,7 +94,7 @@
             </div>
             <div class="row">
                 <div class="col s6">
-                    <p><strong>Total Price:</strong></p>
+                    <p><strong>Total Harga:</strong></p>
                 </div>
                 <div class="col s6 right-align">
                     <p id="modal-buy-total-product-price"></p>
@@ -103,25 +103,25 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="modal-close btn red">Cancel</button>
-        <button id="confirm-buy" class="btn green">Confirm</button>
+        <button class="modal-close btn red">Batal</button>
+        <button id="confirm-buy" class="btn green">Ya</button>
     </div>
 </div>
 
 <!-- Modal for Pay -->
 <div id="modal-pay" class="modal">
     <div class="modal-content">
-        <h4 class="center-align">Payment Confirmation</h4>
+        <h4 class="center-align">Konfirmasi Pembayaran</h4>
         <div class="divider"></div>
         <div class="row">
             <div class="col s12">
-                <p class="flow-text center-align">Are you sure you want to proceed with payment for this product?</p>
+                <p class="flow-text center-align">Apakah Anda yakin ingin melanjutkan pembayaran untuk produk ini?</p>
             </div>
         </div>
         <div class="card-panel light-green lighten-5">
             <div class="row">
                 <div class="col s6">
-                    <p><strong>Product:</strong></p>
+                    <p><strong>Produk:</strong></p>
                 </div>
                 <div class="col s6 right-align">
                     <p id="modal-pay-product-name"></p>
@@ -129,7 +129,7 @@
             </div>
             <div class="row">
                 <div class="col s6">
-                    <p><strong>Price:</strong></p>
+                    <p><strong>Harga:</strong></p>
                 </div>
                 <div class="col s6 right-align">
                     <p id="modal-pay-product-price"></p>
@@ -138,8 +138,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="modal-close btn red">Cancel</button>
-        <button id="confirm-pay" class="btn blue">Pay Now</button>
+        <button class="modal-close btn red">Batal</button>
+        <button id="confirm-pay" class="btn blue">Bayar Sekarang</button>
     </div>
 </div>
 @endsection

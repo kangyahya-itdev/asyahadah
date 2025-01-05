@@ -21,6 +21,7 @@
                             <td>Produk</td>
                             <td>Jumlah</td>
                             <td>Harga</td>
+                            <td>Total</td>
                             <td>Status</td>
                             <td>Komisi</td>
                             <td>Tanggal</td>
@@ -35,11 +36,12 @@
                                     <td>{{ $item->product->name }}</td>
                                     <td class="center">{{ $item->quantity }}</td>
                                     <td>{{ $item->product->getFormattedPriceAttribute() }}</td>
+                                    <td>Rp {{ number_format($item->quantity * $item->product->price, 0, ',', '.') }}</td>
                                     <td>{{ $order->status }}</td>
                                     <td>{{ $item->product->commissionProducts->personal_commission }}%
                                     </td>
                                     <td>{{ $order->created_at->format('d M Y, H:i') }}</td>
-                                    <td>{{($order->status == "Pending Payment") ? 'Bayar' : '-'}}</td>
+                                    <td>{{($order->status == "Pending Payment") ? 'Bayar' : $order->status}}</td>
                                 </tr>
                             @endforeach
                         @empty
