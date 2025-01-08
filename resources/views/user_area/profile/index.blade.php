@@ -65,7 +65,7 @@
                 <li class="collection-header"><h5>Anggota</h5></li>
                 @forelse($downline as $member)
                     <li class="collection-item">{{ $member->name }} - {{ $member->email }}</li>
-                @else
+                @empty
                 <li class="collection-item">Tidak Memiliki Anggota</li>
                 @endforelse
             </ul>
