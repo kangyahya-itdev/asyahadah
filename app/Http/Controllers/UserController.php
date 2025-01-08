@@ -18,9 +18,11 @@ class UserController extends Controller
                 'users' => User::all()
             ]);
         }else{
+            $downline = User::where('upline_id', Auth::id())->get();
             return view('user_area.profile.index',[
                 'title' => 'Profile',
                 'user' => $user,
+                'downline' => $downline,
             ]);
         }
     }

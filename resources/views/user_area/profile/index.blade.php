@@ -58,6 +58,19 @@
         </div>
     </div>
 
+    <!-- Downline Section -->
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Anggota</h5></li>
+                @forelse($downline as $member)
+                    <li class="collection-item">{{ $member->name }} - {{ $member->email }}</li>
+                @else
+                <li class="collection-item">Tidak Memiliki Anggota</li>
+                @endforelse
+            </ul>
+        </div>
+    </div>
     <!-- Settings Section -->
     <div class="row">
         <div class="col s12 m6 offset-m3">
@@ -68,7 +81,7 @@
             </ul>
         </div>
     </div>
-
+    
     <!-- Rekening Section -->
     <div class="row">
         <div class="col s12 m6 offset-m3">
