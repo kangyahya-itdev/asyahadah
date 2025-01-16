@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Commission;
@@ -104,6 +106,57 @@ class OrderController extends Controller
         //     'order' => $order,
         // ]);
     }
+    public function pay(Request $request, $id)
+{
+    try {
+        $order = Order::findOrFail($id);
+
+        // Validasi status pesanan
+        if ($order->status !== 'Pending Payment') {
+            return response()->json(['success' => false, 'message' => 'Pesanan tidak dapat diproses.']);
+        }
+
+        // Ambil data pengguna dan wallet
+        $user = Auth::user();
+        if (!$user->wallet) {
+            return response()->json(['success' => false, 'message' => 'Wallet pengguna tidak ditemukan.']);
+        }
+
+        // Periksa saldo
+        if ($user->wallet->balance < $order->total_price) {
+            return response()->json(['success' => false, 'message' => 'Saldo Anda tidak mencukupi untuk pembayaran ini.']);
+        }
+
+        // Transaksi pembayaran
+        DB::transaction(function () use ($user, $order) {
+            $user->wallet->balance -= $order->total_price;
+            $user->wallet->save();
+
+            $order->status = 'Paid';
+            $order->save();
+
+            // Catat transaksi di wallet_transactions
+            WalletTransaction::create([
+                'wallet_id' => $user->wallet->id,
+                'amount' => -$order->total_price, // Negatif karena saldo berkurang
+                'type' => 'debit', // Atau sesuai konvensi Anda
+                'description' => 'Pembayaran untuk pesanan #' . $order->id,
+                'transaction_date' => now(),
+            ]);
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pembayaran berhasil',
+            'remaining_balance' => $user->wallet->balance,
+        ]);
+    } catch (\Exception $e) {
+        \Log::error($e->getMessage());
+        return response()->json(['success' => false, 'message' => 'Terjadi kesalahan pada server.']);
+    }
+}
+
+
 
     private function updateWalletBalance(User $user, $amount)
     {

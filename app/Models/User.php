@@ -46,4 +46,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Rekening::class);
     }
+    public function topups()
+    {
+        return $this->hasMany(Topup::class);
+    }
 }

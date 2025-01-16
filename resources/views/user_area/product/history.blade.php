@@ -41,7 +41,13 @@
                                     <td>{{ $item->product->commissionProducts->personal_commission }}%
                                     </td>
                                     <td>{{ $order->created_at->format('d M Y, H:i') }}</td>
-                                    <td>{{($order->status == "Pending Payment") ? 'Bayar' : $order->status}}</td>
+                                    <td>
+                                        @if($order->status == "Pending Payment")
+                                            <button class="btn blue btn-pay" data-id="{{ $order->id }}">Bayar</button>
+                                        @else
+                                            <span class='badge green'> {{ $order->status }} </span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         @empty
@@ -53,6 +59,18 @@
                 </table>
             </div>
         </div>
+    </div>
+</div>
+<div id="modal-payment-confirmation" class="modal">
+    <div class="modal-content">
+        <h5>Konfirmasi Pembayaran</h5>
+        <p>Saldo Anda: <strong>Rp {{ number_format(Auth::user()->wallet->balance, 0, ',', '.') }}</strong></p>
+        <p>Total Pembayaran: <strong id="modal-total-payment"></strong></p>
+        <p>Apakah Anda yakin ingin melanjutkan pembayaran untuk pesanan ini?</p>
+    </div>
+    <div class="modal-footer">
+        <button id="confirm-payment" class="btn green modal-close">Ya, Bayar</button>
+        <button class="btn grey modal-close">Batal</button>
     </div>
 </div>
 @endsection
@@ -76,5 +94,67 @@
       }
     });
   });
+  document.addEventListener('DOMContentLoaded', function () {
+    // Inisialisasi modal
+    var modals = document.querySelectorAll('.modal');
+    M.Modal.init(modals);
+
+    // Tombol Bayar diklik
+    document.querySelectorAll('.btn-pay').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const orderId = this.getAttribute('data-id');
+            const totalPaymentText = this.closest('tr').querySelector('td:nth-child(5)').innerText;
+            const totalPayment = parseInt(totalPaymentText.replace(/[^0-9]/g, ''), 10); // Ambil angka dari teks
+            const balanceText = '{{ Auth::user()->wallet->balance }}'; // Ambil saldo dari server-side
+            const balance = parseInt(balanceText, 10);
+
+            document.getElementById('confirm-payment').setAttribute('data-id', orderId);
+            document.getElementById('modal-total-payment').innerText = totalPaymentText;
+
+            // Periksa apakah saldo mencukupi
+            const confirmButton = document.getElementById('confirm-payment');
+            if (balance < totalPayment) {
+                confirmButton.setAttribute('disabled', 'disabled');
+            } else {
+                confirmButton.removeAttribute('disabled');
+            }
+
+            const modal = document.querySelector('#modal-payment-confirmation');
+            const instance = M.Modal.getInstance(modal);
+            instance.open();
+        });
+    });
+
+    // Tombol konfirmasi pembayaran diklik
+    document.getElementById('confirm-payment').addEventListener('click', function () {
+        const orderId = this.getAttribute('data-id');
+
+        fetch("{{ route('user_area.set.pay', ':id') }}".replace(':id', orderId), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({}),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    Swal.fire('Berhasil!', 'Pembayaran berhasil diproses.', 'success').then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire('Gagal!', data.message, 'error');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                Swal.fire('Error!', 'Terjadi kesalahan.', 'error');
+            });
+    });
+});
+
+
+
 </script>
 @endpush

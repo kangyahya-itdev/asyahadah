@@ -40,10 +40,9 @@
                 @endforelse
             </tbody>
         </table>
-        
     </div>
     <div id="action" class="row" style="display:none">
-    <div class="col s12 m12">
+        <div class="col s12 m12">
             <div class="card">
                 <div class="card-content">
                     <span class="card-title" id="product-name">Produk</span>
@@ -53,7 +52,7 @@
                 </div>
                 <div class="card-action">
                     <button id="btn-buy" class="btn waves-effect waves-light green col s12 m12">Order</button>
-                    <!-- <button id="btn-pay" class="btn waves-effect waves-light blue col s6 m6">Bayar</button> -->
+                    <!-- <button id="btn-pay" class="btn waves-effect waves-light blue col s12 m12" style='display:none'>Bayar</button> -->
                 </div>
             </div>
         </div>

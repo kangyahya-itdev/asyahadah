@@ -43,11 +43,15 @@ Route::get('/user_area/product', [ProductController::class, 'index'])->middlewar
 Route::get('/user_area/product/hsitory',[ProductController::class, 'history'])->middleware('auth:sanctum')->name('user_area.product.history');
 
 
+
 //Profile
 Route::get('/user_area/profile', [UserController::class, 'index'])->middleware('auth:sanctum')->name('user_area.profile');
 Route::get('/user_area/profile/edit', [UserController::class, 'edit_profile'])->middleware('auth:sanctum')->name('user_area.profile.edit_profile');
 Route::post('/user_area/order', [OrderController::class, 'create'])->middleware('auth:sanctum')->name('user_area.set.order');
+Route::post('/user_area/order/pay/{id}',[OrderController::class,'pay'])->middleware('auth:sanctum')->name('user_area.set.pay');
 Route::get('/user_area/topup', [WalletController::class, 'index'])->middleware('auth:sanctum')->name('user_area.topup');
+Route::post('/user_area/topup', [WalletController::class, 'uploadProof'])->middleware('auth:sanctum')->name('user_area.proof');
+
 Route::get('/user_area/profile/add_rekening', [WalletController::class, 'add_rekening'])->middleware('auth:sanctum')->name('user_area.profile.add_rekening');
 
 Route::post('/user_area/profile/add_rekening', [WalletController::class, 'store_rekening'])->middleware('auth:sanctum')->name('user_area.profile.store_rekening');
@@ -97,6 +101,18 @@ Route::delete('/admin/commissions/destroy/{id?}', [ProductController::class, 'de
 Route::get('/admin/orders', [OrderController::class, 'list'])
     ->middleware('admin')
     ->name('admin.orders');
+// Top Up for admin
+    Route::get('/admin/topups', [WalletController::class, 'list'])
+    ->middleware('admin')
+    ->name('admin.topups');
+    Route::get('/admin/topups/{id}/confirm', [WalletController::class, 'confirm'])
+    ->middleware('admin')
+    ->name('admin.topups.confirm');
+    Route::get('/admin/topups/{id}/reject', [WalletController::class, 'reject'])
+    ->middleware('admin')
+    ->name('admin.topups.reject');
+
+
 // User for admin
 Route::get('/admin/users', [UserController::class, 'index'])
     ->middleware('admin')

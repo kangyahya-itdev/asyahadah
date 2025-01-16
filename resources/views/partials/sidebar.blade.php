@@ -15,6 +15,10 @@
     <a href="{{route('admin.orders')}}" class="waves-effect waves-teal">
     <i class="material-icons">assignment</i>Orders</a>
     </li>
+    <li class="bold {{ Request::is('admin/topups*') ? 'active' : '' }}">
+        <a href="{{route('admin.topups')}}" class="waves-effect waves-teal">
+        <i class="material-icons">money</i>Topups</a>
+    </li>
     <li class="bold {{ Request::is('admin/users*') ? 'active' : '' }}">
     <a href="{{route('admin.users')}}" class="waves-effect waves-teal">
     <i class="material-icons">people</i>Users</a>

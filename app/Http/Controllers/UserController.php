@@ -72,20 +72,30 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $user = User::create([
-            'handphone' => $request->text_telephone,
-            'name' => $request->text_name,
-            'email' => $request->text_mail,
-            'password' => bcrypt($request->text_password),
-            'referral_code' => $this->generateReferralCode(),
-            'referred_by' => $request->kode_referral,
-            'upline_id' => $this->getUplineIdByReferral($request->kode_referral),
-        ]);
-        if($user){
+        // Gunakan transaksi untuk memastikan atomisitas
+        DB::transaction(function () use ($request) {
+            // Buat user baru
+            $user = User::create([
+                'handphone' => $request->text_telephone,
+                'name' => $request->text_name,
+                'email' => $request->text_mail,
+                'password' => bcrypt($request->text_password),
+                'referral_code' => $this->generateReferralCode(),
+                'referred_by' => $request->kode_referral,
+                'upline_id' => $this->getUplineIdByReferral($request->kode_referral),
+            ]);
+
+            // Catat wallet untuk user baru
+            Wallet::create([
+                'user_id' => $user->id,
+                'balance' => 0,         // Saldo awal (sesuaikan jika ada program reward)
+            ]);
+
+            // Login user secara otomatis
             Auth::login($user);
-            return redirect()->route('login')->with('success', 'User created successfully');
-        }
-        return redirect()->route('register')->with('error', 'User created failed');
+        });
+            // Redirect ke halaman login dengan pesan sukses
+        return redirect()->route('login')->with('success', 'User created successfully');
     }
     public function setLogin(Request $request)
     {
